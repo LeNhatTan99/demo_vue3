@@ -66,25 +66,38 @@ const toggleButtonClass = computed(() => {
 <template>
   <article class="card group flex flex-col p-5 transition hover:-translate-y-0.5 hover:shadow-lg">
     <div class="flex items-start gap-3">
-      <button class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 transition" :class="toggleButtonClass" :aria-label="toggleButtonLabel" @click="$emit('toggle', task)">
-        <Check v-if="isCompleted" :size="15" :stroke-width="3" /><Circle v-else :size="12" />
+      <button class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 transition"
+        :class="toggleButtonClass" :aria-label="toggleButtonLabel" @click="$emit('toggle', task)">
+        <Check v-if="isCompleted" :size="15" :stroke-width="3" />
+        <Circle v-else :size="12" />
       </button>
       <div class="min-w-0 flex-1">
         <div class="flex items-start justify-between gap-3">
-          <RouterLink :to="`/tasks/${task.id}`" class="font-bold leading-6 text-slate-900 hover:text-indigo-600" :class="{ 'text-slate-400 line-through': isCompleted }">{{ task.title }}</RouterLink>
+          <RouterLink :to="`/tasks/${task.id}`" class="font-bold leading-6 text-slate-900 hover:text-indigo-600"
+            :class="{ 'text-slate-400 line-through': isCompleted }">{{ task.title }}</RouterLink>
           <MoreHorizontal :size="19" class="shrink-0 text-slate-300" />
         </div>
         <p class="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{{ task.description || 'Chưa có mô tả.' }}</p>
       </div>
     </div>
     <div class="mt-5 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
-      <span class="rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset" :class="priorityClass[task.priority]">{{ priorityLabel[task.priority] }}</span>
+      <span class="rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset"
+        :class="priorityClass[task.priority]">{{ priorityLabel[task.priority] }}</span>
       <span class="rounded-full px-2.5 py-1 text-xs font-semibold" :class="statusClass">{{ statusLabel }}</span>
-      <span class="ml-0 flex items-center gap-1.5 text-xs text-slate-400 sm:ml-auto"><CalendarDays :size="14" />{{ formattedCreatedAt }}</span>
+      <span class="ml-0 flex items-center gap-1.5 text-xs text-slate-400 sm:ml-auto">
+        <CalendarDays :size="14" />{{ formattedCreatedAt }}
+      </span>
     </div>
-    <div class="mt-3 flex justify-end gap-1 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
-      <button class="rounded-lg p-2 text-slate-400 hover:bg-indigo-50 hover:text-indigo-600" aria-label="Sửa công việc" @click="$emit('edit', task)"><Pencil :size="17" /></button>
-      <button class="rounded-lg p-2 text-slate-400 hover:bg-rose-50 hover:text-rose-600" aria-label="Xóa công việc" @click="$emit('delete', task)"><Trash2 :size="17" /></button>
+    <div
+      class="mt-3 flex justify-end gap-1 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
+      <button class="rounded-lg p-2 text-slate-400 hover:bg-indigo-50 hover:text-indigo-600" aria-label="Sửa công việc"
+        @click="$emit('edit', task)">
+        <Pencil :size="17" />
+      </button>
+      <button class="rounded-lg p-2 text-slate-400 hover:bg-rose-50 hover:text-rose-600" aria-label="Xóa công việc"
+        @click="$emit('delete', task)">
+        <Trash2 :size="17" />
+      </button>
     </div>
   </article>
 </template>

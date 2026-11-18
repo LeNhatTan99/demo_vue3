@@ -225,16 +225,34 @@ const deleteDialogTitle = computed(() => {
 <template>
   <section>
     <div class="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-      <div><div class="mb-2 flex items-center gap-2 text-sm font-semibold text-indigo-600"><ListFilter :size="17" /> Tập trung làm việc</div><h2 class="text-3xl font-extrabold tracking-tight text-slate-950">Quản lý công việc</h2><p class="mt-2 text-sm text-slate-500">Tạo, sắp xếp ưu tiên và duy trì tiến độ công việc.</p></div>
-      <button class="btn-primary" @click="openCreateForm"><Plus :size="18" /> Thêm công việc</button>
+      <div>
+        <div class="mb-2 flex items-center gap-2 text-sm font-semibold text-indigo-600">
+          <ListFilter :size="17" /> Tập trung làm việc
+        </div>
+        <h2 class="text-3xl font-extrabold tracking-tight text-slate-950">Quản lý công việc</h2>
+        <p class="mt-2 text-sm text-slate-500">Tạo, sắp xếp ưu tiên và duy trì tiến độ công việc.</p>
+      </div>
+      <button class="btn-primary" @click="openCreateForm">
+        <Plus :size="18" /> Thêm công việc
+      </button>
     </div>
     <TaskFilter v-model="filters" @clear="clearFilters" />
-    <div class="mb-4 mt-7 flex items-center justify-between"><p class="text-sm font-semibold text-slate-700">{{ filteredTasks.length }} công việc</p><p v-if="filters.search" class="text-xs text-slate-400">Kết quả cho “{{ filters.search }}”</p></div>
-    <div v-if="isLoading" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"><div v-for="index in 6" :key="index" class="h-56 animate-pulse rounded-2xl bg-slate-200" /></div>
-    <div v-else-if="filteredTasks.length" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"><TaskCard v-for="task in filteredTasks" :key="task.id" :task="task" @edit="openEditForm" @delete="deletingTask = $event" @toggle="toggleTask" /></div>
-    <EmptyState v-else :show-action="tasks.length === 0" :title="emptyStateTitle" :description="emptyStateDescription" @action="openCreateForm" />
+    <div class="mb-4 mt-7 flex items-center justify-between">
+      <p class="text-sm font-semibold text-slate-700">{{ filteredTasks.length }} công việc</p>
+      <p v-if="filters.search" class="text-xs text-slate-400">Kết quả cho “{{ filters.search }}”</p>
+    </div>
+    <div v-if="isLoading" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div v-for="index in 6" :key="index" class="h-56 animate-pulse rounded-2xl bg-slate-200" />
+    </div>
+    <div v-else-if="filteredTasks.length" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <TaskCard v-for="task in filteredTasks" :key="task.id" :task="task" @edit="openEditForm"
+        @delete="deletingTask = $event" @toggle="toggleTask" />
+    </div>
+    <EmptyState v-else :show-action="tasks.length === 0" :title="emptyStateTitle" :description="emptyStateDescription"
+      @action="openCreateForm" />
     <TaskForm :open="formOpen" :task="editingTask" @close="closeTaskForm" @submit="saveTask" />
-    <ConfirmDialog :open="Boolean(deletingTask)" :title="deleteDialogTitle" @cancel="cancelDelete" @confirm="confirmDelete" />
+    <ConfirmDialog :open="Boolean(deletingTask)" :title="deleteDialogTitle" @cancel="cancelDelete"
+      @confirm="confirmDelete" />
     <AppToast :message="toastMessage" @close="hideToast" />
   </section>
 </template>
